@@ -1,9 +1,8 @@
-import { request } from 'express';
 import multer from 'multer';
 import path from 'path'
 import {createHash} from 'crypto'
 
-const multerConfig  = {
+const uploader = multer({
     storage: multer.diskStorage({
         destination: path.join(__dirname, '..','..', 'data', 'uploads'),
         filename: (request, file, cb) => {
@@ -15,8 +14,6 @@ const multerConfig  = {
             cb(null, filename)
         }
     })
-}
-
-const uploader = multer(multerConfig)
+})
 
 export default uploader

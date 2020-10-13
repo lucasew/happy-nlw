@@ -1,4 +1,3 @@
-import Router from 'express-promise-router';
 import {ErrorRequestHandler} from 'express';
 
 const handler: ErrorRequestHandler = (err, request, response, next) => {

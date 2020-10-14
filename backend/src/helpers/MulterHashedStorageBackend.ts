@@ -35,7 +35,6 @@ class MulterHashedStorageBackend implements multer.StorageEngine {
             tempFile.close()
             const extension = file.originalname.split('.').pop()
             const newFileName = this.appendFileToBase(`${hash}.${extension}`)
-            console.log(newFileName)
             await promisify(fs.rename)(tempFileName, newFileName)
             cb(null, {
                 path: newFileName,

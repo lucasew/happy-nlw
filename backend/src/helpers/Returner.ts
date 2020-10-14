@@ -31,19 +31,15 @@ const Returner = {
             message
         }
     },
-    assertSchema(request: express.Request, schema: RequestSchema) {
-        if (schema.body !== undefined) {
-            const {error} = schema.body.validate(request.body)
+    assertSchema(request: express.Request, schema: Record<string, Joi.Schema>) {
+        const that = this
+        Object.keys(schema).map(key => {
+            const castRequest = request as Record<string, any>
+            const {error} = schema[key].validate(castRequest[key])
             if (error !== undefined) {
-                this.badRequest(`bad request in body: ${error}`)
+                that.badRequest(`bad request in ${key}: ${error}`)
             }
-        }
-        if (schema.params !== undefined) {
-            const {error} = schema.params.validate(request.params)
-            if (error !== undefined) {
-                this.badRequest(`bad request in params: ${error}`)
-            }
-        }
+        })
     },
     assertCondition(fn: () => boolean, message: string, code?: number) {
         const result = Promise.resolve(fn())

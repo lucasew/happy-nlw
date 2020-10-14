@@ -6,6 +6,7 @@ import ControllerToRouter, { ExpressHandler } from '../../helpers/ControllerToRo
 import OrphanageModel from '../../models/Orphanage'
 import OrphanageView from '../../views/Orphanage'
 import uploader from '../../helpers/Uploader'
+import {basename} from 'path'
 
 const createRequestValidator = {
     body: Joi.object({
@@ -34,7 +35,7 @@ export default ControllerToRouter({
             const files = request.files as Express.Multer.File[]
             const images = files.map(file => {
                 return {
-                    path: file.filename
+                    path: basename(file.path)
                 }
             })
             const orphanage = orphanagesRepository.create({

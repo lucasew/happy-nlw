@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {FiPlus} from 'react-icons/fi';
+import {FiArrowRight, FiArrowRightCircle, FiPlus} from 'react-icons/fi';
 import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
 
 import mapMarker from '../assets/marker.svg';
@@ -62,7 +62,7 @@ function OrphanagesMap() {
                             <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
                                 <h1>{name}</h1>
                                 <Link to={`/orphanages/${id}`}>
-                                    <FiPlus size={32} color="#FFF" />
+                                    <FiArrowRight size={32} color="#FFF" />
                                 </Link>
                             </Popup>
                         </Marker>

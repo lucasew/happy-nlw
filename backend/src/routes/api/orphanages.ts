@@ -31,6 +31,9 @@ export default ControllerToRouter({
         uploader.array('images') as ExpressHandler,
         async (request, response) => {
             Returner.assertSchema(request, createRequestValidator)    
+            if (request.files.length == 0) {
+                Returner.errorCode(400, "bad request: add at least one image")
+            }
             const orphanagesRepository = getRepository(OrphanageModel)
             const files = request.files as Express.Multer.File[]
             const images = files.map(file => {

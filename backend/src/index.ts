@@ -7,7 +7,6 @@ import Returner from './helpers/Returner';
 import {createConnection} from 'typeorm'
 import routes from './routes'
 
-
 const app = express()
 
 console.log("Iniciando...")
@@ -25,4 +24,5 @@ app.use(() => {
 })
 
 app.use(ErrorHandler)
-app.listen(3333)
+
+export default app

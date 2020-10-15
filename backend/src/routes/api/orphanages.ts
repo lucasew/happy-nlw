@@ -30,7 +30,7 @@ export default ControllerToRouter({
     create: [
         uploader.array('images') as ExpressHandler,
         async (request, response) => {
-            Returner.assertSchema(request, createRequestValidator)    
+            const reexportedData = Returner.assertSchema(request, createRequestValidator)    
             if (request.files.length == 0) {
                 Returner.errorCode(400, "bad request: add at least one image")
             }
@@ -42,7 +42,7 @@ export default ControllerToRouter({
                 }
             })
             const orphanage = orphanagesRepository.create({
-                ...request.body,
+                ...reexportedData.body,
                 images
             })
             const result = await orphanagesRepository.save(orphanage) as unknown as OrphanageModel

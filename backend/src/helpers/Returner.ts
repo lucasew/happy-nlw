@@ -33,13 +33,16 @@ const Returner = {
     },
     assertSchema(request: express.Request, schema: Record<string, Joi.Schema>) {
         const that = this
+        let reexportedValue: Record<string,any> = {}
         Object.keys(schema).map(key => {
             const castRequest = request as Record<string, any>
-            const {error} = schema[key].validate(castRequest[key])
+            const {error, value} = schema[key].validate(castRequest[key])
+            reexportedValue[key] = value
             if (error !== undefined) {
                 that.badRequest(`bad request in ${key}: ${error}`)
             }
         })
+        return reexportedValue
     },
     assertCondition(fn: () => boolean, message: string, code?: number) {
         const result = Promise.resolve(fn())

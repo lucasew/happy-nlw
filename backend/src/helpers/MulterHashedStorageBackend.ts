@@ -18,7 +18,6 @@ class MulterHashedStorageBackend implements multer.StorageEngine {
     }
 
     async _handleFile(req: Express.Request, file: Express.Multer.File, cb: (error?: any, info?: Partial<Express.Multer.File>) => void) {
-        let error = null
         try {
             const tempName = await promisify(randomBytes)(64).then(b => b.toString('hex'))
             const tempFileName = this.appendFileToBase(tempName)
@@ -50,5 +49,5 @@ class MulterHashedStorageBackend implements multer.StorageEngine {
     }
 }
 
-
 export default MulterHashedStorageBackend
+

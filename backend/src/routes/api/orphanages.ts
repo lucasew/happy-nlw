@@ -17,6 +17,7 @@ const createRequestValidator = {
         instructions: Joi.string(),
         opening_hours: Joi.string(),
         open_on_weekends: Joi.boolean(),
+        images: Joi.any().strip()
     })
 }
 
@@ -31,6 +32,7 @@ export default ControllerToRouter({
         uploader.array('images') as ExpressHandler,
         async (request, response) => {
             const reexportedData = Returner.assertSchema(request, createRequestValidator)    
+            console.log(reexportedData)
             if (request.files.length == 0) {
                 Returner.errorCode(400, "bad request: add at least one image")
             }
